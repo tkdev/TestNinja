@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿//using Microsoft.VisualStudio.TestTools.UnitTesting; // We don't need this - we use NUnit 
+using NUnit.Framework;
 using System;
 using TestNinja.Fundamentals;
 
 namespace TestNinja.UnitTests
 {
-    [TestClass]
+    //[TestClass] // MS Test used [TestClass]
+    [TestFixture] // NUnit uses [TestFixture] for test classes
     public class ReservationTests
     {
         /*
@@ -17,7 +19,8 @@ namespace TestNinja.UnitTests
          * example: CanBeCancelled_UserIsAdmin_ReturnsTrue
          * 
          */
-        [TestMethod]
+        //[TestMethod] //MS Test uses [TestMethod]
+        [Test] // NUnit uses [Test] for test methods
         public void CanBeCancelled_AdminCancelling_ReturnsTrue()
         {
             /*
@@ -37,10 +40,16 @@ namespace TestNinja.UnitTests
             var result = reservation.CanBeCancelledBy(new User { IsAdmin = true });
 
             //Assert
-            Assert.IsTrue(result);
+            //Assert.IsTrue(result); //MS Test allows to write asserts only in this way
+            //NUnit allows to write Asserts in additional, easier to read ways:
+            Assert.That(result, Is.True); // We will be using this for now - it is easy to read
+            // or
+            //Assert.That(result == true);
+            //and MS Test way is also valid in NUnit:
+            //Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void CanBeCancelled_AnotherUserNotAdminCancelling_ReturnsFalse()
         {
             //Arrange 
@@ -53,7 +62,7 @@ namespace TestNinja.UnitTests
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [Test]
         public void CanBeCancelled_SameUserNotAdminCancelling_ReturnsTrue()
         {
             //Arrange
