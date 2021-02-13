@@ -31,6 +31,7 @@ namespace TestNinja.UnitTests
         }
 
         [Test]
+        [Ignore("Because I test this in \"Max_WhenCalled_ReturnTheGraterArgument\" test as a test case")]
         public void Max_FirstArgumentIsGreater_ReturnTheFirstArgument()
         {
             //var math = new Math(); - commented because we have that in SetUp on the top of the class
@@ -41,6 +42,7 @@ namespace TestNinja.UnitTests
         }
 
         [Test]
+        [Ignore("Because I test this in \"Max_WhenCalled_ReturnTheGraterArgument\" test as a test case")]
         public void Max_SecondArgumentIsGreater_ReturnTheSecondArgument()
         {
             //var math = new Math(); - commented because we have that in SetUp on the top of the class
@@ -51,6 +53,7 @@ namespace TestNinja.UnitTests
         }
 
         [Test]
+        [Ignore("Because I test this in \"Max_WhenCalled_ReturnTheGraterArgument\" test as a test case")]
         public void Max_BothArgumentsAreEqual_ReturnTheSecondArgument()
         {
             //var math = new Math(); - commented because we have that in SetUp on the top of the class
