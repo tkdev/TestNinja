@@ -59,5 +59,21 @@ namespace TestNinja.UnitTests
 
             Assert.That(result, Is.EqualTo(1));
         }
+
+        /* 
+         * Or instead of three above tests we can do that all in one test but with three test cases 
+         * [TestCase(2, 1, 2)] etc
+         */
+
+        [Test]
+        [TestCase(2, 1, 2)]
+        [TestCase(1, 2, 2)]
+        [TestCase(1, 1, 1)]
+        public void Max_WhenCalled_ReturnTheGraterArgument(int a, int b, int expectedResult)
+        {
+            var result = _math.Max(a, b);
+
+            Assert.That(result, Is.EqualTo(expectedResult));
+        }
     }
 }
