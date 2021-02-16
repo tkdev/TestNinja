@@ -20,5 +20,18 @@ namespace TestNinja.UnitTests
                              //and we can test against this:
             Assert.That(logger.LastError, Is.EqualTo("a"));
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Log_WhenPassedInvalidParameter_ThrowsArgumentNullException(string errorMsg)
+        {
+            var logger = new ErrorLogger();
+
+            //logger.Log(errorMsg); will throw an exception while executing. 
+            // to test throwing exception we use lambda (delegate):
+            Assert.That(() => logger.Log(errorMsg), Throws.ArgumentNullException); 
+        }
     }
 }
