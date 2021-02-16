@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Linq;
 using TestNinja.Fundamentals;
 
 namespace TestNinja.UnitTests
@@ -77,6 +78,40 @@ namespace TestNinja.UnitTests
             var result = _math.Max(a, b);
 
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetOddNumbers_LimitIsGreaterThanZero_ReturnOddNumbersUpToLimit()
+        {
+            var result = _math.GetOddNumbers(5);
+
+            //Assert.That(result, Is.Not.Empty); //Very general assertion
+
+            //Assert.That(result.Count(), Is.EqualTo(3)); // Also a general assertion
+
+            //Assert.That(result, Does.Contain(1));
+            //Assert.That(result, Does.Contain(3));
+            //Assert.That(result, Does.Contain(5));
+            //that can be done in one assertion:
+            Assert.That(result, Is.EquivalentTo(new[] { 1, 3, 5 }));
+
+            //if we need to check if elements in collection are ordered, we can use:
+            //Assert.That(result, Is.Ordered);
+
+            //If collection has unique elements
+            //Assert.That(result, Is.Unique);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-5)]
+        public void GetOddNumbers_LimitIsEqualOrLowerThanZero_ReturnEmptyCollection(int a)
+        {
+            var result = _math.GetOddNumbers(a);
+
+            Assert.That(result, Is.Empty); 
+
+            Assert.That(result.Count(), Is.EqualTo(0));
         }
     }
 }
