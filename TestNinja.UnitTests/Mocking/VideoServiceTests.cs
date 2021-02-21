@@ -21,13 +21,25 @@ namespace TestNinja.UnitTests.Mocking
             Assert.That(result, Does.Contain("error").IgnoreCase);
         }
 
-        [Test]
-        public void ReadVideoTitleDependencyInjectionViaProperty_EmptyFile_ReturnError()
-        {
-            var service = new VideoService();
-            service.FileReader = new FakeFileReader();
+        //For Dependency Injection Via Property
+        //[Test]
+        //public void ReadVideoTitleDependencyInjectionViaProperty_EmptyFile_ReturnError()
+        //{
+        //    var service = new VideoService();
+        //    service.FileReader = new FakeFileReader();
 
-            var result = service.ReadVideoTitleInjectionViaProperty();
+        //    var result = service.ReadVideoTitleInjectionViaProperty();
+
+        //    Assert.That(result, Does.Contain("error").IgnoreCase);
+        //}
+
+        // For Dependency Injection Via Constructor
+        [Test]
+        public void ReadVideoTitleDependencyInjectionViaConstructor_EmptyFile_ReturnError()
+        {
+            var service = new VideoService(new FakeFileReader());
+
+            var result = service.ReadVideoTitleDependencyInjectionViaConstructor();
 
             Assert.That(result, Does.Contain("error").IgnoreCase);
         }
