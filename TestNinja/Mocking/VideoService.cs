@@ -12,6 +12,8 @@ namespace TestNinja.Mocking
         //For Dependency Injection via Constructor
         public IFileReader _fileReader { get; set; }
 
+        //This way of injecting dependency is called
+        // Poor's man dependency injection
         public VideoService(IFileReader filereader = null)
         {
             _fileReader = filereader ?? new FileReader();
