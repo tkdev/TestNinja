@@ -7,7 +7,7 @@ using TestNinja.Mocking;
 
 namespace TestNinja.UnitTests
 {
-    public class FakeFileReader : IFileReader
+    public class _FakeFileReader : IFileReader
     {
         public string Read(string path)
         {
