@@ -1,4 +1,4 @@
-﻿using Moq;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,17 @@ namespace TestNinja.UnitTests.Mocking
     {
 
         Mock<IFileReader> _fileReader { get; set; }
+
+        private Mock<IVideoRepository> _videoRepository;
+
         VideoService _videoService { get; set; }
 
         [SetUp]
         public void SetUp()
         {
             _fileReader = new Mock<IFileReader>();
-            _videoService = new VideoService(_fileReader.Object);
+            _videoRepository = new Mock<IVideoRepository>();
+            _videoService = new VideoService(_fileReader.Object, _videoRepository.Object);
         }
 
         //Testing with Moq
@@ -69,5 +73,29 @@ namespace TestNinja.UnitTests.Mocking
         ////    Assert.That(result, Does.Contain("error").IgnoreCase);
         ////}
         #endregion
+
+        [Test]
+        public void GetUnprocessedVideosAsCsv_AllVideosAreProcessed_ReturnAnEmptyString()
+        {
+            _videoRepository.Setup(vr => vr.GetUnprocessedVideos()).Returns(new List<Video>());
+
+            var result = _videoService.GetUnprocessedVideosAsCsv();
+
+            Assert.That(result, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void GetUnprocessedVideosAsCsv_ThreeMoviesInRepository_ReturnStringWithIdsOfUnprocessedVideos()
+        {
+            _videoRepository.Setup(vr => vr.GetUnprocessedVideos()).Returns(new List<Video>() { 
+            new Video { Id = 1, IsProcessed = false, Title = "a"},
+            new Video { Id = 2, IsProcessed = false, Title = "b"},
+            new Video { Id = 3, IsProcessed = false, Title = "c"}
+            });
+
+            var result = _videoService.GetUnprocessedVideosAsCsv();
+
+            Assert.That(result, Is.EqualTo("1,2,3"));
+        }
     }
 }

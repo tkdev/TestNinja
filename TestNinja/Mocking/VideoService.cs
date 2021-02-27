@@ -11,12 +11,14 @@ namespace TestNinja.Mocking
     {
         //For Dependency Injection via Constructor
         public IFileReader _fileReader { get; set; }
+        public IVideoRepository _videoRepository;
 
         //This way of injecting dependency is called
         // Poor's man dependency injection
-        public VideoService(IFileReader filereader = null)
+        public VideoService(IFileReader filereader = null, IVideoRepository videoRepository = null)
         {
             _fileReader = filereader ?? new FileReader();
+            _videoRepository = videoRepository ?? new VideoRepository();
         }
 
 
@@ -60,19 +62,13 @@ namespace TestNinja.Mocking
         public string GetUnprocessedVideosAsCsv()
         {
             var videoIds = new List<int>();
-            
-            using (var context = new VideoContext())
-            {
-                var videos = 
-                    (from video in context.Videos
-                    where !video.IsProcessed
-                    select video).ToList();
-                
-                foreach (var v in videos)
-                    videoIds.Add(v.Id);
 
-                return String.Join(",", videoIds);
-            }
+            var videos = _videoRepository.GetUnprocessedVideos();
+
+            foreach (var v in videos)
+                videoIds.Add(v.Id);
+
+            return String.Join(",", videoIds);
         }
     }
 
