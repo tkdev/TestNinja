@@ -63,6 +63,7 @@
     <Compile Include="CustomerControllerTests.cs" />
     <Compile Include="DemeritPointsCalculatorTests.cs" />
     <Compile Include="ErrorLoggerTests.cs" />
+    <Compile Include="Mocking\BookingHelperTests.cs" />
     <Compile Include="Mocking\EmployeeControllerTests.cs" />
     <Compile Include="Mocking\InstallerHelperTests.cs" />
     <Compile Include="Mocking\OrderServiceTests.cs" />
